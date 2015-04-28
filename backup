@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8" />
+<title>Angusshire – Next Berkeley Bus</title>
+<link rel="stylesheet" href='./bootstrap-3.3.4-dist/css/bootstrap.min.css'>
+<link rel="icon" type="image/ico" href="../../images/logo.png">
+<style>
+select {
+	text-align: right;
+}
+body {
+	text-align: center;
+}
+#title {
+	margin-bottom: 0;
+}
+#text {
+	width: 50%;
+	margin: 0 auto;
+}
+#bus-stop-title, #bus-stop-time {
+	font-weight: bold;
+	width: 100%;
+}
+#bus-stop-title {
+	text-align: right;
+}
+#bus-stop-time {
+	text-align: left;
+}
+#footer {
+	margin-top: 2%;
+}
+#bus-submit {
+	margin-top: .5%;
+}
+#result {
+	margin-top: .5%;
+}
+.subsume {
+	margin-top:1%;
+}
+.in {
+	float: left;
+	width: 49.5%;
+}
+.left {
+	margin-right: .5%;
+}
+.right {
+	margin-left: .5%; /* Percentages need to add up, or new line will result. */
+}
+#container-dd, #time-container {
+	width: 100%;
+}
+#container-dd {
+	text-align: right;
+}
+#time-container {
+	text-align: left;
+}
+#submit-row {
+	margin-top: 4%;
+	clear: both;
+}
+</style>
+
+</head>
+
+
+<body>
+<h1 id='title'>Next Berkeley Bus</h1>
+<p id='text'>This is a simple web application I wrote to find the next available Berkeley bus at one of the chosen bus stops at the specified time. If no time is specified it defaults to the current time. I wrote this application mostly for my own personal use – hence the bland CSS. The application only supports these buses: Central Campus, Perimeter Line. Android support coming soon.
+</p>
+
+<div class='subsume'>
+<div class='in left'>
+<div id='bus-stop-title'>Bus Stop</div>
+<div id='container-dd'><select name='bus-stop'>
+  <option value="--">--</option>
+  <option value="Downtown Berkeley BART Station: Shattuck Avenue @ Addison Street">Downtown Berkeley BART Station: Shattuck Avenue @ Addison Street</option>
+  <option value=""></option>
+  <option value=""></option>
+</select></div>
+</div>
+
+<div class='in right'>
+<div id='bus-stop-time'>Time</div> <!-- Note the static nature of the input text. -->
+<div id='time-container'><input type="text" value="" size='9' id='time-in'></div>
+</div>
+</div>
+
+<div id='submit-row'><!-- Clear makes sure that this element cannot be adjacent to elements that floated before it. --><button id='bus-submit'>Submit Query</button>
+<div id='result'> Pick a bus stop first.</div>
+</div>
+
+<div id='footer'>
+<a href='../..'>Go back to home page.</a>
+<div id='copyright'>© 2015 Angusshire. All rights reserved.</div>
+<div><em>Last date modified: March 31, 2015.</em></div>
+</div>
+
+<?php
+
+require_once('../../php/personal_website.lib.php');
+
+// automate 'last modified' feature
+$page = file_get_contents(__FILE__);
+$backup = file_get_contents('backup');
+if (0 == strcmp($page, $backup)) {
+ 	echo "results match!";
+	$newpage = update_last_modified($page);
+	file_put_contents(__FILE__, $newpage);
+}
+?>
+<script type="text/javascript" src="index.js"></script>
+
+</body>
+</html>
