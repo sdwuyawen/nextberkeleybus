@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+<meta charset="UTF-8" />
+<title>Angusshire – Next Berkeley Bus</title>
+<link rel="icon" type="image/ico" href="logo.png">
+<style>
+#container-dd select {
+	text-align: right;
+}
+body {
+	text-align: center;
+}
+#title {
+	margin-bottom: 0;
+}
+#text {
+	width: 50%;
+	margin: 0 auto;
+	text-indent: 5%;
+}
+#bus-stop {
+	width: 75%;
+}
+#bus-stop-title, #bus-stop-time, #bus-pass-title {
+	font-weight: bold;
+	width: 100%;
+}
+#bus-stop-title {
+	text-align: right;
+}
+#footer {
+	margin-top: 2%;
+}
+#bus-submit {
+	margin-top: .5%;
+}
+#result {
+	margin-top: .5%;
+}
+.subsume {
+	margin-top:1% !important;
+	width: 80%;
+	margin: 0 auto;
+}
+.first {
+	float :left;
+	width: 49.5%;
+	margin-right: .5%;
+}
+.others {
+	float : left;
+	text-align: left;
+	width 24.5%;
+}
+.right {
+	margin-left: .5%;
+}
+#container-dd, #time-container, #container-dd2 {
+	width: 100%;
+}
+#container-dd {
+	text-align: right;
+}
+#submit-row {
+	margin-top: 4%;
+	clear: both;
+}
+
+</style>
+
+</head>
+
+<body>
+<h1 id='title'>Next Berkeley Bus</h1>
+<p id='text'>I couldn't find an application to get the next bus at the particular stops I wanted, so I wrote this application. This simple web application finds the next available Berkeley bus at one of the chosen stops at the specified time. If no time is specified it defaults to the current time. Please specify the time in military time. The application only supports these buses: Central Campus, Perimeter Line. You don't need a bus pass to ride those buses (you just need your Cal 1 I.D. Card); however, they're only available M-F. I probably won't add support for other buses because (1) I don't take them and (2) I can't find readily parsable bus schedules for these buses online (meaning I'll have to go to each individual bus stop to read the schedule and gather data, which is something I don't have time to do).
+</p>
+<br>
+<p id='text'>This application is intended mostly for my own personal use – hence the bland CSS – but feel free to use it. It was written in great haste, so please <a href='mailto:angus@angusshire.com'>email</a> me if there are bugs.
+</p>
+
+<div class='subsume'>
+<div class='first left'>
+<div id='bus-stop-title'>Bus Stop</div>
+<div id='container-dd'><select id='bus-stop' name='bus-stop'>
+  <option value="--">--</option>
+<option value='Oxford Street @ University Avenue'>Oxford Street @ University Avenue</option>
+<option value='Downtown Berkeley BART Station: Shattuck Avenue @ Addison Street'>Downtown Berkeley BART Station: Shattuck Avenue @ Addison Street</option>
+<option value='Cory Hall: Hearst Avenue @ LeRoy Avenue'>Cory Hall: Hearst Avenue @ LeRoy Avenue</option>
+<option value='North Gate Hall: Hearst Avenue @ Euclid Avenue'>North Gate Hall: Hearst Avenue @ Euclid Avenue</option>
+<option value='Evans Hall: Hearst Mining Circle side'>Evans Hall: Hearst Mining Circle side</option>
+<option value='Tolman Hall: Hearst Avenue @ Arch Street'>Tolman Hall: Hearst Avenue @ Arch Street</option>
+<option value='Gayley @ Stadium Rimway'>Gayley @ Stadium Rimway</option>
+<option value='Haas School of Business: Piedmont Avenue Side'>Haas School of Business: Piedmont Avenue Side</option>
+<option value='International House: Piedmont Avenue @ Bancroft Way'>International House: Piedmont Avenue @ Bancroft Way</option>
+<option value='Hearst Memorial Gym: Bancroft Way @ Bowditch Street'>Hearst Memorial Gym: Bancroft Way @ Bowditch Street</option>
+<option value='Kroeber Hall: Bancroft Way @ College Avenue'>Kroeber Hall: Bancroft Way @ College Avenue</option>
+<option value='RSF: Bancroft Way @ Ellsworth Street'>RSF: Bancroft Way @ Ellsworth Street</option>
+<option value='Shattuck Avenue @ Kittredge Street'>Shattuck Avenue @ Kittredge Street</option>
+<option value='Banway Building: Bancroft Way @ Shattuck Avenue'>Banway Building: Bancroft Way @ Shattuck Avenue</option>
+<option value='College Avenue @ Haste Street'>College Avenue @ Haste Street</option>
+<option value='Sproul Hall: Bancroft Way @ Barrow Lane'>Sproul Hall: Bancroft Way @ Barrow Lane</option>
+<option value='Piedmont Avenue @ Channing Way'>Piedmont Avenue @ Channing Way</option>
+<option value='Li Ka Shing Center: West Crescent Side'>Li Ka Shing Center: West Crescent Side</option>
+<option value='West Circle: University Drive Side'>West Circle: University Drive Side</option>
+<option value='Moffitt Library: University Drive'>Moffitt Library: University Drive</option>
+</select></div>
+</div>
+
+<div class='others middle'>
+<div id='bus-stop-time'>Time</div> <!-- Note the static nature of the input text. -->
+<div id='time-container'><input type="text" value="" size='9' id='time-in'></div>
+</div>
+
+<!--
+<div class='others right'>
+<div id='bus-pass-title'>Bus Pass?</div>
+<div id='container-dd2'>
+<select id='pass-in'>
+<option value='Yes'>Yes</option>
+<option value='No'>No</option>
+</select>
+</div>
+</div>-->
+</div>
+
+<div id='submit-row'><!-- Clear makes sure that this element cannot be adjacent to elements that floated before it. --><button id='bus-submit'>Submit Query</button>
+<div id='result'> Pick a bus stop first.</div>
+</div>
+
+<div id='footer'>
+<a href='.'>Go back to home page.</a>
+<div id='copyright'>© 2015 Angusshire. All rights reserved.</div>
+<div><em>Last date modified: April 23, 2015.</em></div>
+</div>
+
+<?php
+
+define('DEBUG', true);
+
+require_once('personal_website.lib.php');
+
+// automate 'last modified' feature
+$page = file_get_contents(__FILE__);
+$backup = file_get_contents('backup');
+if (0 != strcmp($page, $backup)) {
+	$newpage = update_last_modified($page);
+	file_put_contents(__FILE__, $newpage);
+}
+
+
+//if (DEBUG) { runTests(); }
+
+
+?>
+<script type="text/javascript" src="index.js"></script>
+
+</body>
+</html>
