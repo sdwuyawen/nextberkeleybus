@@ -1,3 +1,5 @@
+<!-- Copyright (c) 2015 Angus H. (4148) -->
+<!-- Distributed under the GNU General Public License v3.0 (GPLv3). -->
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
