@@ -3,6 +3,9 @@
 <pre>
 <?php
 
+// Copyright (c) 2015 Angus H. (4148)
+// Distributed under the GNU General Public License v3.0 (GPLv3).
+
 // parses pasted bus schedule data into Javascript so it can be used in .js file. This is just a helper script that prepares data for writing the main application.
 
 // parses central and perimeter bus schedules
